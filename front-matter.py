@@ -31,7 +31,7 @@ def update_front_matter(file):
         else:
             timeArray = time.localtime(os.path(file).getctime())
         createTime = time.strftime("%Y-%m-%d %H:%M", timeArray)
-        print('获取标题 '+createTime)
+        print('获取创建时间 '+createTime)
         post['date'] = createTime
         if not is_write:
             is_write = True
