@@ -6,7 +6,7 @@ import time
 import frontmatter
 
 # 获取标题和文件创建日期
-def update_front_matter(file):
+def update_front_matter(file,is_force=False):
 
     with open(file, 'r', encoding='utf-8') as f:
        post = frontmatter.loads(f.read())
@@ -14,7 +14,7 @@ def update_front_matter(file):
     is_write = False
       
     # 获取标题   
-    if not post.metadata.get('title', None):  
+    if (not post.metadata.get('title', None)) or is_force:  
         # 去掉 .md 后缀
         title=file.split('/')[-1][:-3]
         print('获取标题 '+title)
@@ -23,7 +23,7 @@ def update_front_matter(file):
             is_write = True
 
 
-    if not post.metadata.get('date', None):
+    if (not post.metadata.get('date', None)) or is_force:
         
         # macOS
         if platform.system() =='Darwin':
@@ -82,6 +82,15 @@ class Things():
             time.sleep(1)
         print("添加标题和日期完成!")
 
+    def add_titleAndDate_force(self):
+        for file in files:    
+            print("---------------------------------------------------------------")
+            print('current file: ', file)
+            update_front_matter(file,True)
+            time.sleep(1)
+        print("(强制)添加标题和日期完成!")
+
+
     def get_tag(self):
         print("未施工 ... ...")
         time.sleep(1)
@@ -103,6 +112,7 @@ class Menu():
         self.thing = Things()
         self.choices = {
             "1": self.thing.add_titleAndDate,
+            "1f": self.thing.add_titleAndDate_force,
             "2": self.thing.get_tag,
             "3": self.thing.add_pros,
             "4": self.quit
