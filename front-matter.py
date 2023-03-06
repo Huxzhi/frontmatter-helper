@@ -88,7 +88,7 @@ class Things():
         print("done!")
 
     def add_pros(self):
-        attribute=input('请输入属性名：')
+        attribute=input('请输入属性名（比如 category）：')
         value=input('请输入属性值：')
         for file in files:    
             print("---------------------------------------------------------------")
